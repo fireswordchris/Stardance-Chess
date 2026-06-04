@@ -16,6 +16,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.9384497, 0.9384497, 0.9384497, 1)
+color = Color(0.9372549, 0.9372549, 0.9372549, 1)
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

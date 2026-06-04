@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://dxc0qwdc2mb7v"]
 
+[ext_resource type="Script" uid="uid://7q2m04xqmuuy" path="res://Scenes/main.gd" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://klln203874ra" path="res://Scenes/board.tscn" id="1_jjgbg"]
 
 [node name="Main" type="Node" unique_id=468277066]
+script = ExtResource("1_bo1nx")
 
 [node name="Board" parent="." unique_id=729772099 instance=ExtResource("1_jjgbg")]
+unique_name_in_owner = true

@@ -1,7 +1,9 @@
 extends TextureButton
 
 var pos;
-var possibleMoves;
+var possibleMoves = [];
+var white = true;
+var b;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -12,9 +14,31 @@ func _process(delta):
 	pass
 
 func _on_pressed():
+	findPossibleMoves();
 	print("white pawn");
 	print(pos);
 	print(possibleMoves);
 	
 func findPossibleMoves():
-	pass
+	possibleMoves.clear();
+	
+	if (pos[1] == 6 and !b.board[[pos[0],4]].occupied):
+		possibleMoves.append([pos[0],4]);
+	
+	if (!b.board[[pos[0],pos[1]-1]].occupied):
+		possibleMoves.append([pos[0],pos[1]-1]);
+	
+	if (pos[0] > 0):
+		if (b.board[[pos[0]-1,pos[1]-1]].occupied and !b.pieces[[pos[0]-1,pos[1]-1]].white):
+			possibleMoves.append([pos[0]-1,pos[1]-1]);
+	if (pos[0] < 7):
+		if (b.board[[pos[0]+1,pos[1]-1]].occupied and !b.pieces[[pos[0]+1,pos[1]-1]].white):
+			possibleMoves.append([pos[0]+1,pos[1]-1]);
+			
+	var temp = {};
+	for move in possibleMoves:
+		if !(move in temp):
+			temp[move] = "held";
+	possibleMoves = temp.keys();
+	
+	b.showPossible(possibleMoves);

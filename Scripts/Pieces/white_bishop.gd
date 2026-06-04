@@ -1,8 +1,9 @@
 extends TextureButton
 
 var pos;
-var possibleMoves;
-
+var possibleMoves = [];
+var white = true;
+var b;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
