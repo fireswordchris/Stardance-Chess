@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://bpwm1he42wvsd"]
 
-[ext_resource type="Texture2D" uid="uid://boegba073ypqt" path="res://Assets/Pieces/pieces.png" id="1_ebj0b"]
+[ext_resource type="Texture2D" uid="uid://dvrs4p7am84jo" path="res://Assets/Pieces/black_pawn.tres" id="1_ebj0b"]
+[ext_resource type="Script" uid="uid://c4vgnpifr23em" path="res://Scripts/Pieces/black_pawn.gd" id="2_d13do"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d13do"]
-atlas = ExtResource("1_ebj0b")
-region = Rect2(26.5, 54, 100, 100)
+[node name="Black Pawn" type="TextureButton" unique_id=1888408482]
+mouse_filter = 1
+texture_normal = ExtResource("1_ebj0b")
+script = ExtResource("2_d13do")
 
-[node name="Black Pawn" type="Sprite2D" unique_id=949578073]
-texture = SubResource("AtlasTexture_d13do")
+[connection signal="pressed" from="." to="." method="_on_pressed"]

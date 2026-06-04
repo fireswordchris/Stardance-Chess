@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://kss1t3ijlryy"]
 
-[ext_resource type="Script" uid="uid://bihqe87m7djlr" path="res://Scenes/space.gd" id="1_0ll74"]
+[ext_resource type="Script" uid="uid://bihqe87m7djlr" path="res://Scripts/space.gd" id="1_0ll74"]
 
 [node name="Space" type="Button" unique_id=1660399859 groups=["Board"]]
 visibility_layer = 2
@@ -18,5 +18,4 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.9384497, 0.9384497, 0.9384497, 1)
 
-[connection signal="button_down" from="." to="." method="_on_button_down"]
 [connection signal="pressed" from="." to="." method="_on_pressed"]

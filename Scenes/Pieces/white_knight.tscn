@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cqcin06otdmw1"]
 
-[ext_resource type="Texture2D" uid="uid://boegba073ypqt" path="res://Assets/Pieces/pieces.png" id="1_i1i8p"]
+[ext_resource type="Texture2D" uid="uid://bwetxvb7jb7fa" path="res://Assets/Pieces/white_knight.tres" id="1_2vy42"]
+[ext_resource type="Script" uid="uid://dn7hrmdll321n" path="res://Scripts/Pieces/white_knight.gd" id="1_i1i8p"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2vy42"]
-atlas = ExtResource("1_i1i8p")
-region = Rect2(209.5, 159, 100, 100)
+[node name="White Knight" type="TextureButton" unique_id=319571024]
+texture_normal = ExtResource("1_2vy42")
+script = ExtResource("1_i1i8p")
 
-[node name="White Knight" type="Sprite2D" unique_id=1903501276]
-texture = SubResource("AtlasTexture_2vy42")
+[connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://dq06cnuegvvv0"]
 
-[ext_resource type="Texture2D" uid="uid://boegba073ypqt" path="res://Assets/Pieces/pieces.png" id="1_xfu65"]
+[ext_resource type="Texture2D" uid="uid://cxxgrsabvw70g" path="res://Assets/Pieces/white_rook.tres" id="1_xfu65"]
+[ext_resource type="Script" uid="uid://qnm5gbl2tgmh" path="res://Scripts/Pieces/white_rook.gd" id="2_loyf3"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_loyf3"]
-atlas = ExtResource("1_xfu65")
-region = Rect2(113.5, 160, 100, 100)
+[node name="White Rook" type="TextureButton" unique_id=1142665608]
+texture_normal = ExtResource("1_xfu65")
+script = ExtResource("2_loyf3")
 
-[node name="White Rook" type="Sprite2D" unique_id=769445165]
-texture = SubResource("AtlasTexture_loyf3")
+[connection signal="pressed" from="." to="." method="_on_pressed"]

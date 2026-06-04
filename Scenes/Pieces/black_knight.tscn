@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://5je8jx5vpxtq"]
 
-[ext_resource type="Texture2D" uid="uid://boegba073ypqt" path="res://Assets/Pieces/pieces.png" id="1_ngqt5"]
+[ext_resource type="Texture2D" uid="uid://dsnlyrtb04pbj" path="res://Assets/Pieces/black_knight.tres" id="1_ngqt5"]
+[ext_resource type="Script" uid="uid://bphun86gv58ei" path="res://Scripts/Pieces/black_knight.gd" id="2_fbnxr"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fbnxr"]
-atlas = ExtResource("1_ngqt5")
-region = Rect2(202.5, 49, 100, 100)
+[node name="Black Knight" type="TextureButton" unique_id=114926776]
+texture_normal = ExtResource("1_ngqt5")
+script = ExtResource("2_fbnxr")
 
-[node name="Black Knight" type="Sprite2D" unique_id=795410441]
-texture = SubResource("AtlasTexture_fbnxr")
+[connection signal="pressed" from="." to="." method="_on_pressed"]

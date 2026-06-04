@@ -1,21 +1,19 @@
-extends Button
+extends TextureButton
 
-var x;
-var y;
-
-var white;
-
-var occupied = false;
-
+var pos;
+var possibleMoves;
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	pass # Replace with function body.
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
 func _on_pressed():
-	print(x);
-	print(y);
-	print(white);
-	print(occupied);
+	print("black queen");
+	print(pos);
+	print(possibleMoves);
+	
+func findPossibleMoves():
+	pass

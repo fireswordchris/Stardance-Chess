@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://crrf0fjry4l30"]
 
-[ext_resource type="Texture2D" uid="uid://boegba073ypqt" path="res://Assets/Pieces/pieces.png" id="1_4fhuf"]
+[ext_resource type="Texture2D" uid="uid://bq4i3uud4spj4" path="res://Assets/Pieces/black_king.tres" id="1_4fhuf"]
+[ext_resource type="Script" uid="uid://fd11uer4jp8m" path="res://Scripts/Pieces/black_king.gd" id="2_qyhx7"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qyhx7"]
-atlas = ExtResource("1_4fhuf")
-region = Rect2(438.5, 46, 77, 104)
+[node name="Black King" type="TextureButton" unique_id=341330005]
+texture_normal = ExtResource("1_4fhuf")
+script = ExtResource("2_qyhx7")
 
-[node name="Black King" type="Sprite2D" unique_id=1482368143]
-texture = SubResource("AtlasTexture_qyhx7")
+[connection signal="pressed" from="." to="." method="_on_pressed"]
