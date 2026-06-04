@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://5je8jx5vpxtq"]
+
+[ext_resource type="Texture2D" uid="uid://boegba073ypqt" path="res://Assets/Pieces/pieces.png" id="1_ngqt5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbnxr"]
+atlas = ExtResource("1_ngqt5")
+region = Rect2(202.5, 49, 100, 100)
+
+[node name="Black Knight" type="Sprite2D" unique_id=795410441]
+texture = SubResource("AtlasTexture_fbnxr")

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dbjjhe0hogbpb"]
+
+[ext_resource type="Texture2D" uid="uid://boegba073ypqt" path="res://Assets/Pieces/pieces.png" id="1_x23eh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_giesg"]
+atlas = ExtResource("1_x23eh")
+region = Rect2(115.5, 51, 100, 100)
+
+[node name="Black Rook" type="Sprite2D" unique_id=1910372916]
+texture = SubResource("AtlasTexture_giesg")

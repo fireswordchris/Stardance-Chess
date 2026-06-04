@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cglr7u663ys0h"]
+
+[ext_resource type="Texture2D" uid="uid://bic3cpj1q58tv" path="res://Assets/Pieces/black_bishop.tres" id="1_1ihpv"]
+
+[node name="Black Bishop" type="TextureButton" unique_id=403182484]
+texture_normal = ExtResource("1_1ihpv")

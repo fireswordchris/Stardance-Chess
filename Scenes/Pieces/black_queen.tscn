@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://6itodqltq8hs"]
+
+[ext_resource type="Texture2D" uid="uid://boegba073ypqt" path="res://Assets/Pieces/pieces.png" id="1_ncdib"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya5k4"]
+atlas = ExtResource("1_ncdib")
+region = Rect2(356.5, 47, 96, 102)
+
+[node name="Black Queen" type="Sprite2D" unique_id=194585657]
+texture = SubResource("AtlasTexture_ya5k4")

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bpwm1he42wvsd"]
+
+[ext_resource type="Texture2D" uid="uid://boegba073ypqt" path="res://Assets/Pieces/pieces.png" id="1_ebj0b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d13do"]
+atlas = ExtResource("1_ebj0b")
+region = Rect2(26.5, 54, 100, 100)
+
+[node name="Black Pawn" type="Sprite2D" unique_id=949578073]
+texture = SubResource("AtlasTexture_d13do")

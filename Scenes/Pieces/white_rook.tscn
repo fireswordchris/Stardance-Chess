@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dq06cnuegvvv0"]
+
+[ext_resource type="Texture2D" uid="uid://boegba073ypqt" path="res://Assets/Pieces/pieces.png" id="1_xfu65"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loyf3"]
+atlas = ExtResource("1_xfu65")
+region = Rect2(113.5, 160, 100, 100)
+
+[node name="White Rook" type="Sprite2D" unique_id=769445165]
+texture = SubResource("AtlasTexture_loyf3")

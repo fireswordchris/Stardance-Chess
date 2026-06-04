@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dph0y22qqm3hj"]
+
+[ext_resource type="Texture2D" uid="uid://boegba073ypqt" path="res://Assets/Pieces/pieces.png" id="1_76mqc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8onu"]
+atlas = ExtResource("1_76mqc")
+region = Rect2(20.5, 158, 100, 100)
+
+[node name="White Pawn" type="Sprite2D" unique_id=1709862207]
+texture = SubResource("AtlasTexture_l8onu")

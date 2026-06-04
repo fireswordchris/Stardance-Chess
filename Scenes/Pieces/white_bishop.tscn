@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://tgcpfsidyo7w"]
+
+[ext_resource type="Texture2D" uid="uid://boegba073ypqt" path="res://Assets/Pieces/pieces.png" id="1_g7k12"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uaeoa"]
+atlas = ExtResource("1_g7k12")
+region = Rect2(296.5, 162, 80, 100)
+
+[node name="White Bishop" type="Sprite2D" unique_id=1261042082]
+texture = SubResource("AtlasTexture_uaeoa")
