@@ -126,9 +126,10 @@ func findPossibleMoves():
 		else:
 			break;
 	
+	#clear dupes
 	var temp = {};
 	for move in possibleMoves:
-		if !(move in temp):
+		if !(move in temp) and move != pos:
 			temp[move] = "held";
 	possibleMoves = temp.keys();
 	

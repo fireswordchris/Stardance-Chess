@@ -7,6 +7,8 @@ var white;
 
 var occupied = false;
 var b;
+
+var tintAmount = .1
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
@@ -17,10 +19,10 @@ func _process(delta):
 func tint():
 	if (white):
 		$ColorRect.color = b.white;
-		$ColorRect.color = Color($ColorRect.color.r-.065,$ColorRect.color.g,$ColorRect.color.b-.065);
+		$ColorRect.color = Color($ColorRect.color.r-tintAmount,$ColorRect.color.g,$ColorRect.color.b-tintAmount);
 	else:
 		$ColorRect.color = b.black;
-		$ColorRect.color = Color($ColorRect.color.r-.065,$ColorRect.color.g,$ColorRect.color.b-.065);
+		$ColorRect.color = Color($ColorRect.color.r-tintAmount,$ColorRect.color.g,$ColorRect.color.b-tintAmount);
 
 func unTint():
 	if (white):

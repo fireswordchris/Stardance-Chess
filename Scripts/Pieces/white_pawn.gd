@@ -35,9 +35,10 @@ func findPossibleMoves():
 		if (b.board[[pos[0]+1,pos[1]-1]].occupied and !b.pieces[[pos[0]+1,pos[1]-1]].white):
 			possibleMoves.append([pos[0]+1,pos[1]-1]);
 			
+	#clear dupes
 	var temp = {};
 	for move in possibleMoves:
-		if !(move in temp):
+		if !(move in temp) and move != pos:
 			temp[move] = "held";
 	possibleMoves = temp.keys();
 	
