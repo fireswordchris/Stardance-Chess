@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://fd11uer4jp8m" path="res://Scripts/Pieces/black_king.gd" id="2_qyhx7"]
 
 [node name="Black King" type="TextureButton" unique_id=341330005]
+mouse_filter = 2
 texture_normal = ExtResource("1_4fhuf")
 script = ExtResource("2_qyhx7")
 

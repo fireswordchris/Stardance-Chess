@@ -4,6 +4,8 @@ var pos;
 var possibleMoves = [];
 var white = true;
 var b;
+var selected = false;
+var type = "queen";
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -15,10 +17,15 @@ func _process(delta):
 
 
 func _on_pressed():
+	if (b.selectedPiece != null):
+		b.selectedPiece.selected = false;
+	b.selectedPiece = self;
+	selected = true;
+	
 	findPossibleMoves();
 	print("white queen");
 	print(pos);
-	print(possibleMoves);
+	
 	
 func findPossibleMoves():
 	possibleMoves.clear();
@@ -62,7 +69,7 @@ func findPossibleMoves():
 			break;
 		
 	for i in range(8):
-		if (pos[1]-(i+1) > 0):
+		if (pos[1]-(i+1) > -1):
 			if (!b.board[[pos[0],pos[1]-(i+1)]].occupied):
 				possibleMoves.append([pos[0],pos[1]-(i+1)]);
 			elif (!b.pieces[[pos[0],pos[1]-(i+1)]].white):
@@ -89,11 +96,11 @@ func findPossibleMoves():
 
 		#down-left
 	for i in range(8):
-		if (pos[0]-i > -1 and pos[1]+i < 8):
-			if (!b.board[[pos[0]-i, pos[1]+i]].occupied):
-				possibleMoves.append([pos[0]-i, pos[1]+i]);
-			elif (!b.pieces[[pos[0]-i, pos[1]+i]].white):
-				possibleMoves.append([pos[0]-i, pos[1]+i]);
+		if (pos[0]-(i+1) > -1 and pos[1]+(i+1) < 8):
+			if (!b.board[[pos[0]-(i+1), pos[1]+(i+1)]].occupied):
+				possibleMoves.append([pos[0]-(i+1), pos[1]+(i+1)]);
+			elif (!b.pieces[[pos[0]-(i+1), pos[1]+(i+1)]].white):
+				possibleMoves.append([pos[0]-(i+1), pos[1]+(i+1)]);
 				break;
 			else:
 				break;
@@ -115,11 +122,11 @@ func findPossibleMoves():
 			
 		#up-right
 	for i in range(8):
-		if (pos[0]+i < 8 and pos[1]-i > -1):
-			if (!b.board[[pos[0]+i, pos[1]-i]].occupied):
-				possibleMoves.append([pos[0]+i, pos[1]-i]);
-			elif (!b.pieces[[pos[0]+i, pos[1]-i]].white):
-				possibleMoves.append([pos[0]+i, pos[1]-i]);
+		if (pos[0]+(i+1) < 8 and pos[1]-(i+1) > -1):
+			if (!b.board[[pos[0]+(i+1), pos[1]-(i+1)]].occupied):
+				possibleMoves.append([pos[0]+(i+1), pos[1]-(i+1)]);
+			elif (!b.pieces[[pos[0]+(i+1), pos[1]-(i+1)]].white):
+				possibleMoves.append([pos[0]+(i+1), pos[1]-(i+1)]);
 				break;
 			else:
 				break;

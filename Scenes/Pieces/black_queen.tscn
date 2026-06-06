@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cenjt7uyk57bl" path="res://Scripts/Pieces/black_queen.gd" id="2_ya5k4"]
 
 [node name="Black Queen" type="TextureButton" unique_id=586682060]
+mouse_filter = 2
 texture_normal = ExtResource("1_ncdib")
 script = ExtResource("2_ya5k4")
 

@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bae8nfjveiqk5" path="res://Scripts/Pieces/black_rook.gd" id="2_giesg"]
 
 [node name="Black Rook" type="TextureButton" unique_id=1392502399]
+mouse_filter = 2
 texture_normal = ExtResource("1_x23eh")
 script = ExtResource("2_giesg")
 

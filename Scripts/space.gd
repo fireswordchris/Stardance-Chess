@@ -4,6 +4,7 @@ var x;
 var y;
 
 var white;
+var offset = 100;
 
 var occupied = false;
 var b;
@@ -32,8 +33,25 @@ func unTint():
 
 func _on_pressed():
 	b.unShowPossible();
-	print(x);
-	print(y);
-	print(white);
-	print(occupied);
-	
+	if (b.selectedPiece != null):
+		if ([x,y] in b.selectedPiece.possibleMoves):
+			if (occupied):
+				var taken = b.pieces[[x,y]];
+				b.pieces.erase([x,y]);
+				taken.free();
+				
+			var piece = b.selectedPiece;
+			
+			b.board[piece.pos].occupied = false;
+			b.pieces.erase(piece.pos);
+			piece.pos = [x,y];
+			b.pieces[piece.pos] = piece;
+			
+			piece.set_position(Vector2(x*100+offset,y*100));
+			occupied = true;
+			
+			if ((y == 7 or y == 0) and piece.type == "pawn"):
+				piece.evolve();
+
+		b.selectedPiece.selected = false;
+		b.selectedPiece = null;

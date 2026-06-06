@@ -4,6 +4,8 @@ var pos;
 var possibleMoves = [];
 var white = false;
 var b;
+var selected = false;
+var type = "pawn";
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -17,7 +19,7 @@ func _on_pressed():
 	findPossibleMoves();
 	print("black pawn");
 	print(pos);
-	print(possibleMoves);
+	
 	
 func findPossibleMoves():
 	possibleMoves.clear();

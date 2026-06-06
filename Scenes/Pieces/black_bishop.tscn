@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bc34q04bjpfy7" path="res://Scripts/Pieces/black_bishop.gd" id="2_g88ks"]
 
 [node name="Black Bishop" type="TextureButton" unique_id=403182484]
+mouse_filter = 2
 texture_normal = ExtResource("1_1ihpv")
 script = ExtResource("2_g88ks")
 

@@ -4,6 +4,8 @@ var pos;
 var possibleMoves = [];
 var white = false;
 var b;
+var selected = false;
+var type = "rook";
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -18,7 +20,7 @@ func _on_pressed():
 	findPossibleMoves();
 	print("black rook");
 	print(pos);
-	print(possibleMoves);
+	
 	
 func findPossibleMoves():
 	possibleMoves.clear();
@@ -62,7 +64,7 @@ func findPossibleMoves():
 			break;
 		
 	for i in range(8):
-		if (pos[1]-(i+1) > 0):
+		if (pos[1]-(i+1) > -1):
 			if (!b.board[[pos[0],pos[1]-(i+1)]].occupied):
 				possibleMoves.append([pos[0],pos[1]-(i+1)]);
 			elif (b.pieces[[pos[0],pos[1]-(i+1)]].white):

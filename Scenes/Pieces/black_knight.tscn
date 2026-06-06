@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bphun86gv58ei" path="res://Scripts/Pieces/black_knight.gd" id="2_fbnxr"]
 
 [node name="Black Knight" type="TextureButton" unique_id=114926776]
+mouse_filter = 2
 texture_normal = ExtResource("1_ngqt5")
 script = ExtResource("2_fbnxr")
 

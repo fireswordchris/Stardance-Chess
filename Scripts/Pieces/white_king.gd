@@ -5,6 +5,8 @@ var possibleMoves = [];
 var white = true;
 var pieces;
 var b;
+var selected = false;
+var type = "king";
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -16,10 +18,15 @@ func _process(delta):
 
 
 func _on_pressed():
+	if (b.selectedPiece != null):
+		b.selectedPiece.selected = false;
+	b.selectedPiece = self;
+	selected = true;
+	
 	findPossibleMoves();
 	print("white king");
 	print(pos);
-	print(possibleMoves);
+	
 	
 func findPossibleMoves():
 	possibleMoves.clear();

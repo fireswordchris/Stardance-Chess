@@ -2,10 +2,61 @@
 
 [ext_resource type="Texture2D" uid="uid://wdrwa2t07kn6" path="res://Assets/Pieces/white_pawn.tres" id="1_76mqc"]
 [ext_resource type="Script" uid="uid://sng1tcv80aq6" path="res://Scripts/Pieces/white_pawn.gd" id="2_l8onu"]
+[ext_resource type="Texture2D" uid="uid://c46brfmcbk51q" path="res://Assets/Pieces/white_queen.tres" id="3_wcfdk"]
+[ext_resource type="Texture2D" uid="uid://cxxgrsabvw70g" path="res://Assets/Pieces/white_rook.tres" id="4_nfh5b"]
+[ext_resource type="Texture2D" uid="uid://6fa7qy8vsa5g" path="res://Assets/Pieces/white_bishop.tres" id="5_sjo26"]
+[ext_resource type="Texture2D" uid="uid://bwetxvb7jb7fa" path="res://Assets/Pieces/white_knight.tres" id="6_64v26"]
 
 [node name="White Pawn" type="TextureButton" unique_id=14635694]
 mouse_filter = 1
 texture_normal = ExtResource("1_76mqc")
 script = ExtResource("2_l8onu")
 
+[node name="Evolve Menu" type="ColorRect" parent="." unique_id=1494739300]
+visible = false
+layout_mode = 0
+offset_left = -37.0
+offset_top = 31.0
+offset_right = 127.0
+offset_bottom = 81.0
+color = Color(0.20511726, 0.2051175, 0.20511737, 0.6117647)
+
+[node name="Queen" type="TextureButton" parent="Evolve Menu" unique_id=626393245]
+layout_mode = 0
+offset_right = 94.0
+offset_bottom = 101.0
+scale = Vector2(0.45, 0.45)
+texture_normal = ExtResource("3_wcfdk")
+
+[node name="Rook" type="TextureButton" parent="Evolve Menu" unique_id=1322509654]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 1.0
+offset_right = 142.0
+offset_bottom = 101.0
+scale = Vector2(0.45, 0.45)
+texture_normal = ExtResource("4_nfh5b")
+
+[node name="Bishop" type="TextureButton" parent="Evolve Menu" unique_id=1380838590]
+layout_mode = 0
+offset_left = 86.0
+offset_top = 3.0
+offset_right = 166.0
+offset_bottom = 103.0
+scale = Vector2(0.45, 0.45)
+texture_normal = ExtResource("5_sjo26")
+
+[node name="Knight" type="TextureButton" parent="Evolve Menu" unique_id=146774482]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 3.0
+offset_right = 222.0
+offset_bottom = 103.0
+scale = Vector2(0.45, 0.45)
+texture_normal = ExtResource("6_64v26")
+
 [connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="pressed" from="Evolve Menu/Queen" to="." method="_on_queen_pressed"]
+[connection signal="pressed" from="Evolve Menu/Rook" to="." method="_on_rook_pressed"]
+[connection signal="pressed" from="Evolve Menu/Bishop" to="." method="_on_bishop_pressed"]
+[connection signal="pressed" from="Evolve Menu/Knight" to="." method="_on_knight_pressed"]

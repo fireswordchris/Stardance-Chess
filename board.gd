@@ -1,5 +1,8 @@
 extends Node2D
 
+
+var selectedPiece;
+
 var offset = 100;
 
 var board = {};
