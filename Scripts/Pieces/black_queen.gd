@@ -2,10 +2,11 @@ extends TextureButton
 
 var pos;
 var possibleMoves = [];
+var guardedMoves = [];
 var white = false;
 var b;
 var selected = false;
-var type = "queen";
+var val = 9;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -17,35 +18,40 @@ func _process(delta):
 
 
 func _on_pressed():
-	findPossibleMoves();
-	print("black queen");
-	print(pos);
-	print(possibleMoves);
+	if (b.selectedPiece != null):
+		b.selectedPiece.selected = false;
+	b.selectedPiece = self;
+	selected = true;
 	
-func findPossibleMoves():
+	findPossibleMoves(b.pieces, b.board, true);
+	
+func findPossibleMoves(pieces, board, checkOthers):
+	guardedMoves.clear();
 	possibleMoves.clear();
 	
 	#horizontal checks
 	for i in range(8):
 		if (pos[0] + (i+1) < 8):
-			if (!b.board[[pos[0]+(i+1),pos[1]]].occupied):
+			if (!board[[pos[0]+(i+1),pos[1]]].occupied):
 				possibleMoves.append([pos[0]+(i+1),pos[1]]);
-			elif (!b.pieces[[pos[0]+(i+1),pos[1]]].white):
+			elif (pieces[[pos[0]+(i+1),pos[1]]].white):
 				possibleMoves.append([pos[0]+(i+1),pos[1]]);
 				break;
 			else:
+				guardedMoves.append([pos[0]+(i+1),pos[1]]);
 				break;
 		else:
 			break;
 			
 	for i in range(8):
 		if (pos[0] - (i+1) > -1):
-			if (!b.board[[pos[0]-(i+1),pos[1]]].occupied):
+			if (!board[[pos[0]-(i+1),pos[1]]].occupied):
 				possibleMoves.append([pos[0]-(i+1),pos[1]]);
-			elif (!b.pieces[[pos[0]-(i+1),pos[1]]].white):
+			elif (pieces[[pos[0]-(i+1),pos[1]]].white):
 				possibleMoves.append([pos[0]-(i+1),pos[1]]);
 				break;
 			else:
+				guardedMoves.append([pos[0]-(i+1),pos[1]]);
 				break;
 		else:
 			break;
@@ -53,24 +59,26 @@ func findPossibleMoves():
 	#vertical checks
 	for i in range(8):
 		if (pos[1] + (i+1) < 8):
-			if (!b.board[[pos[0],pos[1]+(i+1)]].occupied):
+			if (!board[[pos[0],pos[1]+(i+1)]].occupied):
 				possibleMoves.append([pos[0],pos[1]+(i+1)]);
-			elif (!b.pieces[[pos[0],pos[1]+(i+1)]].white):
+			elif (pieces[[pos[0],pos[1]+(i+1)]].white):
 				possibleMoves.append([pos[0],pos[1]+(i+1)]);
 				break;
 			else:
+				guardedMoves.append([pos[0],pos[1]+(i+1)]);
 				break;
 		else:
 			break;
 		
 	for i in range(8):
 		if (pos[1]-(i+1) > -1):
-			if (!b.board[[pos[0],pos[1]-(i+1)]].occupied):
+			if (!board[[pos[0],pos[1]-(i+1)]].occupied):
 				possibleMoves.append([pos[0],pos[1]-(i+1)]);
-			elif (!b.pieces[[pos[0],pos[1]-(i+1)]].white):
+			elif (pieces[[pos[0],pos[1]-(i+1)]].white):
 				possibleMoves.append([pos[0],pos[1]-(i+1)]);
 				break;
 			else:
+				guardedMoves.append([pos[0],pos[1]-(i+1)]);
 				break;
 		else:
 			break;
@@ -79,12 +87,13 @@ func findPossibleMoves():
 		#down-right
 	for i in range(8):
 		if (pos[0]+(i+1) < 8 and pos[1]+(i+1) < 8):
-			if (!b.board[[pos[0]+(i+1), pos[1]+(i+1)]].occupied):
+			if (!board[[pos[0]+(i+1), pos[1]+(i+1)]].occupied):
 				possibleMoves.append([pos[0]+(i+1), pos[1]+(i+1)]);
-			elif (!b.pieces[[pos[0]+(i+1), pos[1]+(i+1)]].white):
+			elif (pieces[[pos[0]+(i+1), pos[1]+(i+1)]].white):
 				possibleMoves.append([pos[0]+(i+1), pos[1]+(i+1)]);
 				break;
 			else:
+				guardedMoves.append([pos[0]+(i+1), pos[1]+(i+1)]);
 				break;
 		else:
 			break;
@@ -92,12 +101,13 @@ func findPossibleMoves():
 		#down-left
 	for i in range(8):
 		if (pos[0]-(i+1) > -1 and pos[1]+(i+1) < 8):
-			if (!b.board[[pos[0]-(i+1), pos[1]+(i+1)]].occupied):
+			if (!board[[pos[0]-(i+1), pos[1]+(i+1)]].occupied):
 				possibleMoves.append([pos[0]-(i+1), pos[1]+(i+1)]);
-			elif (!b.pieces[[pos[0]-(i+1), pos[1]+(i+1)]].white):
+			elif (pieces[[pos[0]-(i+1), pos[1]+(i+1)]].white):
 				possibleMoves.append([pos[0]-(i+1), pos[1]+(i+1)]);
 				break;
 			else:
+				guardedMoves.append([pos[0]-(i+1), pos[1]+(i+1)]);
 				break;
 		else:
 			break;
@@ -105,12 +115,13 @@ func findPossibleMoves():
 		#up-left
 	for i in range(8):
 		if (pos[0]-(i+1) > -1 and pos[1]-(i+1) > -1):
-			if (!b.board[[pos[0]-(i+1), pos[1]-(i+1)]].occupied):
+			if (!board[[pos[0]-(i+1), pos[1]-(i+1)]].occupied):
 				possibleMoves.append([pos[0]-(i+1), pos[1]-(i+1)]);
-			elif (!b.pieces[[pos[0]-(i+1), pos[1]-(i+1)]].white):
+			elif (pieces[[pos[0]-(i+1), pos[1]-(i+1)]].white):
 				possibleMoves.append([pos[0]-(i+1), pos[1]-(i+1)]);
 				break;
 			else:
+				guardedMoves.append([pos[0]-(i+1), pos[1]-(i+1)]);
 				break;
 		else:
 			break;
@@ -118,12 +129,13 @@ func findPossibleMoves():
 		#up-right
 	for i in range(8):
 		if (pos[0]+(i+1) < 8 and pos[1]-(i+1) > -1):
-			if (!b.board[[pos[0]+(i+1), pos[1]-(i+1)]].occupied):
+			if (!board[[pos[0]+(i+1), pos[1]-(i+1)]].occupied):
 				possibleMoves.append([pos[0]+(i+1), pos[1]-(i+1)]);
-			elif (!b.pieces[[pos[0]+(i+1), pos[1]-(i+1)]].white):
+			elif (pieces[[pos[0]+(i+1), pos[1]-(i+1)]].white):
 				possibleMoves.append([pos[0]+(i+1), pos[1]-(i+1)]);
 				break;
 			else:
+				guardedMoves.append([pos[0]+(i+1), pos[1]-(i+1)]);
 				break;
 		else:
 			break;
@@ -134,5 +146,9 @@ func findPossibleMoves():
 		if !(move in temp) and move != pos:
 			temp[move] = "held";
 	possibleMoves = temp.keys();
-	
-	b.showPossible(possibleMoves);
+	temp = {};
+	for move in guardedMoves:
+		if !(move in temp) and move != pos:
+			temp[move] = "held";
+	guardedMoves = temp.keys();
+	#b.showPossible(possibleMoves);

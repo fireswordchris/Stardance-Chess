@@ -2,10 +2,11 @@ extends TextureButton
 
 var pos;
 var possibleMoves = [];
+var guardedMoves = [];
 var white = false;
 var b;
 var selected = false;
-var type = "knight";
+var val = 3;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -16,60 +17,79 @@ func _process(delta):
 	pass
 
 func _on_pressed():
-	findPossibleMoves();
-	print("black knight");
-	print(pos);
+	if (b.selectedPiece != null):
+		b.selectedPiece.selected = false;
+	b.selectedPiece = self;
+	selected = true;
 	
+	findPossibleMoves(b.pieces, b.board, true);
 
 
-func findPossibleMoves():
+func findPossibleMoves(pieces, board, checkOthers):
+	guardedMoves.clear();
 	possibleMoves.clear();
 	
 	if (pos[0]+1 < 8):
 		if (pos[1]+2 < 8):
-			if (!b.board[[pos[0]+1,pos[1]+2]].occupied):
+			if (!board[[pos[0]+1,pos[1]+2]].occupied):
 				possibleMoves.append([pos[0]+1,pos[1]+2]);
-			elif (b.pieces[[pos[0]+1,pos[1]+2]].white):
+			elif (pieces[[pos[0]+1,pos[1]+2]].white):
 				possibleMoves.append([pos[0]+1,pos[1]+2]);
+			else:
+				guardedMoves.append([pos[0]+1,pos[1]+2]);
 		if (pos[1]-2 > -1):
-			if (!b.board[[pos[0]+1,pos[1]-2]].occupied):
+			if (!board[[pos[0]+1,pos[1]-2]].occupied):
 				possibleMoves.append([pos[0]+1,pos[1]-2]);
-			elif (b.pieces[[pos[0]+1,pos[1]-2]].white):
+			elif (pieces[[pos[0]+1,pos[1]-2]].white):
 				possibleMoves.append([pos[0]+1,pos[1]-2]);
+			else:
+				guardedMoves.append([pos[0]+1,pos[1]-2]);
 	if (pos[0]-1 > -1):
 		if (pos[1]+2 < 8):
-			if (!b.board[[pos[0]-1,pos[1]+2]].occupied):
+			if (!board[[pos[0]-1,pos[1]+2]].occupied):
 				possibleMoves.append([pos[0]-1,pos[1]+2]);
-			elif (b.pieces[[pos[0]-1,pos[1]+2]].white):
+			elif (pieces[[pos[0]-1,pos[1]+2]].white):
 				possibleMoves.append([pos[0]-1,pos[1]+2]);
+			else:
+				guardedMoves.append([pos[0]-1,pos[1]+2]);
 		if (pos[1]-2 > -1):
-			if (!b.board[[pos[0]-1,pos[1]-2]].occupied):
+			if (!board[[pos[0]-1,pos[1]-2]].occupied):
 				possibleMoves.append([pos[0]-1,pos[1]-2]);
-			elif (b.pieces[[pos[0]-1,pos[1]-2]].white):
+			elif (pieces[[pos[0]-1,pos[1]-2]].white):
 				possibleMoves.append([pos[0]-1,pos[1]-2]);
+			else:
+				guardedMoves.append([pos[0]-1,pos[1]-2]);
 				
 	if (pos[0]+2 < 8):
 		if (pos[1]+1 < 8):
-			if (!b.board[[pos[0]+2,pos[1]+1]].occupied):
+			if (!board[[pos[0]+2,pos[1]+1]].occupied):
 				possibleMoves.append([pos[0]+2,pos[1]+1]);
-			elif (b.pieces[[pos[0]+2,pos[1]+1]].white):
+			elif (pieces[[pos[0]+2,pos[1]+1]].white):
 				possibleMoves.append([pos[0]+2,pos[1]+1]);
+			else:
+				guardedMoves.append([pos[0]+2,pos[1]+1]);
 		if (pos[1]-1 > -1):
-			if (!b.board[[pos[0]+2,pos[1]-1]].occupied):
+			if (!board[[pos[0]+2,pos[1]-1]].occupied):
 				possibleMoves.append([pos[0]+2,pos[1]-1]);
-			elif (b.pieces[[pos[0]+2,pos[1]-1]].white):
+			elif (pieces[[pos[0]+2,pos[1]-1]].white):
 				possibleMoves.append([pos[0]+2,pos[1]-1]);
+			else:
+				guardedMoves.append([pos[0]+2,pos[1]-1]);
 	if (pos[0]-2 > -1):
 		if (pos[1]+1 < 8):
-			if (!b.board[[pos[0]-2,pos[1]+1]].occupied):
+			if (!board[[pos[0]-2,pos[1]+1]].occupied):
 				possibleMoves.append([pos[0]-2,pos[1]+1]);
-			elif (b.pieces[[pos[0]-2,pos[1]+1]].white):
+			elif (pieces[[pos[0]-2,pos[1]+1]].white):
 				possibleMoves.append([pos[0]-2,pos[1]+1]);
+			else:
+				guardedMoves.append([pos[0]-2,pos[1]+1]);
 		if (pos[1]-1 > -1):
-			if (!b.board[[pos[0]-2,pos[1]-1]].occupied):
+			if (!board[[pos[0]-2,pos[1]-1]].occupied):
 				possibleMoves.append([pos[0]-2,pos[1]-1]);
-			elif (b.pieces[[pos[0]-2,pos[1]-1]].white):
+			elif (pieces[[pos[0]-2,pos[1]-1]].white):
 				possibleMoves.append([pos[0]-2,pos[1]-1]);
+			else:
+				guardedMoves.append([pos[0]-2,pos[1]-1]);
 				
 	#clear dupes
 	var temp = {};
@@ -77,5 +97,9 @@ func findPossibleMoves():
 		if !(move in temp) and move != pos:
 			temp[move] = "held";
 	possibleMoves = temp.keys();
-	
-	b.showPossible(possibleMoves);
+	temp = {};
+	for move in guardedMoves:
+		if !(move in temp) and move != pos:
+			temp[move] = "held";
+	guardedMoves = temp.keys();
+	#b.showPossible(possibleMoves);

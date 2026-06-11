@@ -4,3 +4,6 @@
 
 [node name="Board" type="Node2D" unique_id=1140407571]
 script = ExtResource("1_tnbny")
+
+[node name="Timer" type="Timer" parent="." unique_id=709547795]
+one_shot = true

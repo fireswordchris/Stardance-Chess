@@ -1,6 +1,8 @@
 extends Node2D
 
 
+var playerWin = false;
+
 var selectedPiece;
 
 var offset = 100;
@@ -12,6 +14,8 @@ var black = Color(0.202, 0.266, 0.236, 1.0);
 var white = Color(0.869, 0.869, 0.869, 1.0);
 
 var pieces = {};
+var blackPieces = [];
+var whitePieces = [];
 
 var wPawn = preload("res://Scenes/Pieces/white_pawn.tscn");
 var bPawn = preload("res://Scenes/Pieces/black_pawn.tscn");
@@ -25,6 +29,11 @@ var wQueen = preload("res://Scenes/Pieces/white_queen.tscn");
 var bQueen = preload("res://Scenes/Pieces/black_queen.tscn");
 var wKing = preload("res://Scenes/Pieces/white_king.tscn");
 var bKing = preload("res://Scenes/Pieces/black_king.tscn");
+
+var playerTurn = true;
+
+var bKingPos;
+var wKingPos;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -72,6 +81,9 @@ func setupPieces():
 	queens();
 	kings();
 	
+	for piece in pieces.values():
+		piece.findPossibleMoves(pieces, board, true);
+	
 func pawns():
 	for i in range(8):
 		var pawn = wPawn.instantiate();
@@ -82,6 +94,7 @@ func pawns():
 		
 		get_parent().add_child.call_deferred(pawn);
 		pieces[pawn.pos] = pawn;
+		whitePieces.append(pawn);
 		
 		
 	for i in range(8):
@@ -93,6 +106,7 @@ func pawns():
 		
 		get_parent().add_child.call_deferred(pawn);
 		pieces[pawn.pos] = pawn;
+		blackPieces.append(pawn);
 		
 func bishops():
 	for i in range(2):
@@ -106,6 +120,7 @@ func bishops():
 		bishop.pos = [roundi((bishop.get_position().x-offset)/100), 7];
 		
 		pieces[bishop.pos] = bishop;
+		whitePieces.append(bishop);
 		get_parent().add_child.call_deferred(bishop);
 		
 		
@@ -120,6 +135,7 @@ func bishops():
 		bishop.pos = [roundi((bishop.get_position().x-offset)/100), 0];
 		
 		pieces[bishop.pos] = bishop;
+		blackPieces.append(bishop);
 		get_parent().add_child.call_deferred(bishop);
 		
 func knights():
@@ -134,6 +150,7 @@ func knights():
 		knight.pos = [roundi((knight.get_position().x-offset)/100),7];
 
 		pieces[knight.pos] = knight;
+		whitePieces.append(knight);
 		get_parent().add_child.call_deferred(knight);
 		
 		
@@ -148,6 +165,7 @@ func knights():
 		knight.pos = [roundi((knight.get_position().x-offset)/100),0];
 		
 		pieces[knight.pos] = knight;
+		blackPieces.append(knight);
 		get_parent().add_child.call_deferred(knight);
 		
 func rooks():
@@ -162,6 +180,7 @@ func rooks():
 		rook.pos = [roundi((rook.get_position().x-offset)/100), 7];
 
 		pieces[rook.pos] = rook;
+		whitePieces.append(rook);
 		get_parent().add_child.call_deferred(rook);
 		
 	
@@ -176,6 +195,7 @@ func rooks():
 		rook.pos = [roundi((rook.get_position().x-offset)/100), 0];
 		
 		pieces[rook.pos] = rook;
+		blackPieces.append(rook);
 		get_parent().add_child.call_deferred(rook);
 		
 func queens():
@@ -186,6 +206,7 @@ func queens():
 	whiteQueen.pos = [3,7];
 	
 	pieces[whiteQueen.pos] = whiteQueen;
+	whitePieces.append(whiteQueen);
 	get_parent().add_child.call_deferred(whiteQueen);
 	
 	
@@ -197,6 +218,7 @@ func queens():
 	blackQueen.pos = [3,0];
 	
 	pieces[blackQueen.pos] = blackQueen;
+	blackPieces.append(blackQueen);
 	get_parent().add_child.call_deferred(blackQueen);
 	
 func kings():
@@ -205,8 +227,10 @@ func kings():
 	
 	whiteKing.set_position(Vector2(400+offset,700));
 	whiteKing.pos = [4,7];
+	wKingPos = whiteKing.pos;
 	
 	pieces[whiteKing.pos] = whiteKing;
+	whitePieces.append(whiteKing);
 	get_parent().add_child.call_deferred(whiteKing);
 	
 	
@@ -215,8 +239,10 @@ func kings():
 	
 	blackKing.set_position(Vector2(400+offset,0));
 	blackKing.pos = [4,0];
+	bKingPos = blackKing.pos;
 	
 	pieces[blackKing.pos] = blackKing;
+	blackPieces.append(blackKing);
 	get_parent().add_child.call_deferred(blackKing);
 	
 
@@ -232,3 +258,98 @@ func showPossible(spaces):
 func unShowPossible():
 	for space in tinted:
 		board[space].unTint();
+
+func computerMove():
+	for piece in whitePieces:
+		if !pieces.has(piece):
+			pieces[piece.pos] = piece;
+	for piece in blackPieces:
+		if (!pieces.has(piece)):
+			pieces[piece.pos] = piece;
+	
+	if (!playerWin):
+		$"Timer".start();
+		await $"Timer".timeout;
+		get_parent().computerMove();
+	else:
+		print("player win");
+
+func castlePossible(side):
+	var leftRookPossible = false;
+	var rightRookPossible = false;
+
+	if (side == "black"):
+		for piece in blackPieces:
+			if (piece.val == 5):
+				if (piece.notMoved):
+					if (piece.pos[0] == 0):
+						leftRookPossible = true;
+					else:
+						rightRookPossible = true;
+					
+		if (leftRookPossible):
+			for piece in pieces.values():
+				if (piece.pos == [1,0] or piece.pos == [2,0] or piece.pos == [3,0]):
+					leftRookPossible = false;
+					break;
+				if (piece.white):
+					if ([1,0] in piece.possibleMoves or [2,0] in piece.possibleMoves or [3,0] in piece.possibleMoves):
+						leftRookPossible = false;
+						break;
+					elif ([1,0] in piece.guardedMoves or [2,0] in piece.guardedMoves or [3,0] in piece.guardedMoves):
+						leftRookPossible = false;
+						break;
+		if (rightRookPossible):
+			for piece in pieces.values():
+				if (piece.pos == [5,0] or piece.pos == [6,0]):
+					rightRookPossible = false;
+					break;
+				if (piece.white):
+					if ([5,0] in piece.possibleMoves or [6,0] in piece.possibleMoves):
+						rightRookPossible = false;
+						break;
+					elif ([5,0] in piece.guardedMoves or [6,0] in piece.guardedMoves):
+						rightRookPossible = false;
+						break;
+	else:
+		for piece in whitePieces:
+			if (piece.val == 5):
+				if (piece.notMoved):
+					if (piece.pos[0] == 0):
+						leftRookPossible = true;
+					else:
+						rightRookPossible = true;
+					
+		if (leftRookPossible):
+			for piece in pieces.values():
+				if (piece.pos == [1,7] or piece.pos == [2,7] or piece.pos == [3,7]):
+					leftRookPossible = false;
+					break;
+				if (!piece.white):
+					if ([1,7] in piece.possibleMoves or [2,7] in piece.possibleMoves or [3,7] in piece.possibleMoves):
+						leftRookPossible = false;
+						break;
+					elif ([1,7] in piece.guardedMoves or [2,7] in piece.guardedMoves or [3,7] in piece.guardedMoves):
+						leftRookPossible = false;
+						break;
+		if (rightRookPossible):
+			for piece in pieces.values():
+				if (piece.pos == [5,7] or piece.pos == [6,7]):
+					rightRookPossible = false;
+					break;
+				if (!piece.white):
+					if ([5,7] in piece.possibleMoves or [6,7] in piece.possibleMoves):
+						rightRookPossible = false;
+						break;
+					elif ([5,7] in piece.guardedMoves or [6,7] in piece.guardedMoves):
+						rightRookPossible = false;
+						break;
+	
+	if (leftRookPossible and rightRookPossible):
+		return "both";
+	elif (leftRookPossible):
+		return "left";
+	elif (rightRookPossible):
+		return "right";
+	else:
+		return "no";
